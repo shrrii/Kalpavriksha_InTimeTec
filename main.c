@@ -82,7 +82,13 @@ int main() {
         exit(1);
     }
     expr[strcspn(expr, "\n")] = 0;
-
+    int length=strlen(expr);
+    char last=expr[length-1];
+    if(!isdigit(last)){
+         printf("Invalid expression.\n");
+         exit(1);
+    }
+  
     int result = evaluate_expression(expr);
     printf("Result: %d\n", result);
 
