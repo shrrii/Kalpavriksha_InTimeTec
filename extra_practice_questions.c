@@ -95,6 +95,42 @@ int main()
     {
         printf("%c ",*(arr+i));
     }
-
+    free(arr);
+    return 0;
+}
+//Question 3: Remove duplicates from Sorted Array
+#include<stdio.h>
+#include<stdlib.h>
+int solve(int *arr,int n)
+{
+    int id=1;
+    for(int i=1;i<n;i++)
+    {
+        if(arr[i]!=arr[i-1])
+        {
+            arr[id++]=arr[i];
+        }
+    }
+    return id;
+}
+int main()
+{
+    int n;
+    int *ptr=&n;
+    printf("enter the number of elements");
+    scanf("%d",ptr);
+    int *arr;
+    arr=(int *)malloc(n*sizeof(int));
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",arr+i);
+    }
+    int updateindex=solve(arr,n);
+    printf("updated matrix is\n");
+    for(int i=0;i<updateindex;i++)
+    {
+        printf("%d ",arr[i]);
+    }
+    free(arr);
     return 0;
 }
