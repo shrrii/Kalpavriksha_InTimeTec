@@ -69,3 +69,32 @@ int main()
     printf("]\n");
     return 0;
 }
+// Question 2: Given an array, of size n, reverse it,taking input as a character type.
+//Example: If array a b c d e , after reversing it, the array should be e d c b a, 
+#include <stdio.h>
+#include<stdlib.h>
+int main()
+{
+    int n;
+    int *ptr=&n;
+    printf("enter number of elements");
+    scanf("%d",ptr);
+    char *arr;
+    arr=(char *)malloc(n*sizeof(char));
+    for(int i=0;i<n;i++)
+    {
+        scanf("%s",arr+i);
+    }
+    printf("input array is\n");
+    for(int i=0;i<n;i++)
+    {
+        printf("%c ",*(arr+i));
+    }
+    printf("\n reversed array is\n");
+    for(int i=n-1;i>=0;i--)
+    {
+        printf("%c ",*(arr+i));
+    }
+
+    return 0;
+}
