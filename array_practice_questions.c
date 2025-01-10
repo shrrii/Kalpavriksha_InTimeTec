@@ -134,3 +134,71 @@ int main()
     free(arr);
     return 0;
 }
+//Question 4:Write a program that checks whether a matric is a sparse matrix.
+//A sparse matrix is a special matrix where more than half of its elements are equal to zero.
+#include <stdio.h>
+#include<stdlib.h>
+int main()
+{
+    int row,col;
+    int *p1=&row;
+    int *p2=&col;
+    printf("enter number of rows of matrix\n");
+    scanf("%d",p1);
+    printf("enter number of columns of matrix\n");
+    scanf("%d",p2);
+    int **matrix;
+    matrix=(int **)malloc((*p1)*sizeof(int *));
+    if(!matrix)
+    {
+        printf("allocation of matrix failed\n");
+        return 1;
+    }
+    for(int i=0;i<*p1;i++)
+    {
+        matrix[i]=(int *)malloc((*p2)*sizeof(int));
+        if(!matrix[i])
+        {
+            printf("allocation of matrix failed\n");
+            return 1;
+        }
+    }
+    for(int i=0;i<*p1;i++)
+    {
+        for(int j=0;j<*p2;j++)
+        {
+            scanf("%d",*(matrix+i)+j);
+        }
+    }
+    printf("2d matrix is\n");
+    for(int i=0;i<*p1;i++)
+    {
+       for(int j=0;j<*p2;j++)
+       {
+           printf("%d ",*(*(matrix+i)+j));
+       }
+       printf("\n");
+    }
+    int half_element=((*p1)*(*p2))/2;
+    int count=0;
+    int *p3=&count;
+    for(int i=0;i<*p1;i++)
+    {
+        for(int j=0;j<*p2;j++)
+        {
+            if(*(*(matrix+i)+j)==0)
+            {
+                (*p3)++;
+            }
+        }
+        free(matrix[i]);
+    }
+    free(matrix);
+    if(*p3>half_element)
+    {
+        printf("matrix is a sparse matrix\n");
+    }else{
+        printf("matrix is not a sparse matrix\n");
+    }
+    return 0;
+}
