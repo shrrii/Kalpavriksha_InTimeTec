@@ -297,4 +297,88 @@ int main()
     printf("%s",result);
     return 0;
 }
-//Question 7: 
+//Question 7: write a program to print 2d array of string input in matrix format and 
+//then find the frequency of each unique element in the matrix
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int row,col;
+int check(char ***matrix,char *element,int row,int col,int temp[][col])
+{
+    int c=0;
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+            if(strcmp(element,matrix[i][j])==0&&temp[i][j]==0)
+            {
+                c++;
+                temp[i][j]=1;
+            }
+        }
+    }
+    return c;
+}
+int main()
+{
+    printf("enter the number of rows ");
+    scanf("%d",&row);
+    printf("enter the number of columns ");
+    scanf("%d",&col);
+    char ***matrix=(char ***)malloc(row*sizeof(char **));
+    for(int i=0;i<row;i++)
+    {
+        matrix[i]=(char **)malloc(col*sizeof(char *));
+        for(int j=0;j<col;j++)
+        {
+        matrix[i][j]=(char *)malloc(100*sizeof(char));
+        }
+    }
+    printf("enter matrix elements\n");
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+            scanf(" %[^\n]",matrix[i][j]);
+        }
+    }
+    printf("matrix is : \n");
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+            printf("%s ",matrix[i][j]);
+        }
+        printf("\n");
+    }
+    int temp[row][col];
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+            temp[i][j]=0;
+        }
+    }
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+            if(temp[i][j]==0)
+            {
+                int count=check(matrix,matrix[i][j],row,col,temp);
+                printf("element %s frequency is %d\n",matrix[i][j],count);
+            }
+        }
+    }
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+            free(matrix[i][j]);
+        }
+        free(matrix[i]);
+    }
+    free(matrix);
+    return 0;
+}
+//Question 8: 
