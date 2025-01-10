@@ -381,4 +381,50 @@ int main()
     free(matrix);
     return 0;
 }
-//Question 8: 
+//Question 8: Write a program that splits a string by space into words. Use an array of strings to store the words.
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int main()
+{
+    char *str;
+    int maxlen;
+    printf("enter the length of the string\n");
+    scanf("%d",&maxlen);
+    str=(char *)malloc((maxlen+1)*sizeof(char));
+    getchar();
+    printf("enter string\n");
+    fgets(str,maxlen+1,stdin);
+    printf("string is\n");
+    printf("%s",str);
+    char **arr=(char **)malloc(maxlen*sizeof(char *));
+    for(int i=0;i<maxlen;i++)
+    {
+        arr[i]=(char *)malloc(100*sizeof(char));
+    }
+    int len=strlen(str);
+    int k=0;
+    int j=0;
+    char temp[100];
+    for(int i=0;i<=len;i++)
+    {
+       if(str[i]!=' '&&str[i]!='\0')
+       {
+           temp[j++]=str[i];
+       }
+       else if(j>0)
+       {
+           temp[j]='\0';
+           arr[k]=(char *)malloc((j+1)*sizeof(char));
+           strcpy(arr[k],temp);
+           k++;
+           j=0;
+       }
+    }
+    printf("\nwords in the string are:\n");
+    for(int i=0;i<k;i++)
+    {
+        printf("%s\n",arr[i]);
+    }
+    return 0;
+}
