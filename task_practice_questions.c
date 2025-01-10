@@ -202,3 +202,51 @@ int main()
     }
     return 0;
 }
+//Question 5: rotate 2d array 90 degrees
+#include <stdio.h>
+#include<stdlib.h>
+int **allocate(int *p1,int *p2)
+{
+    int **m=(int **)malloc((*p1)*sizeof(int *));
+    for(int i=0;i<*p1;i++)
+    {
+        m[i]=(int *)malloc((*p2)*sizeof(int));
+    }
+    return m;
+}
+int main()
+{
+    int row,col;
+    int *p1=&row;
+    int *p2=&col;
+    scanf("%d %d",p1,p2);
+    int **matrix=allocate(p1,p2);
+    for(int i=0;i<*p1;i++)
+    {
+        for(int j=0;j<*p2;j++)
+        {
+            scanf("%d",*(matrix+i)+j);
+        }
+    }
+    printf("matrix is\n");
+    for(int i=0;i<*p1;i++)
+    {
+        for(int j=0;j<*p2;j++)
+        {
+            printf("%d ",*(*(matrix+i)+j));
+        }
+        printf("\n");
+    }
+    int **result=allocate(p2,p1);
+    printf("\nrotated matrix is\n");
+    for(int i=0;i<*p2;i++)
+    {
+        for(int j=(*p1)-1,k=0;j>=0||k>(*p1);j--,k++)
+        {
+            *(*(result+i)+k)=*(*(matrix+j)+i);
+            printf("%d ",*(*(result+i)+k));
+        }
+        printf("\n");
+    }
+    return 0;
+}
