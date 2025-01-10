@@ -250,3 +250,51 @@ int main()
     }
     return 0;
 }
+//Question 6: take a string as a input and then modify the string with only lower case and upper case alphabet character 
+//remove special characters,number and then again modify this string with only Upper case characters.
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+void modify(char *result)
+{
+    while(*result!='\0')
+    {
+        if(*result>='a'&&*result<='z')
+        { 
+               *result-=32;
+        }
+        result++;
+    }
+}
+int main()
+{
+    char *str;
+    int maxlen;
+    printf("enter the length of string\n");
+    scanf("%d",&maxlen);
+    getchar();
+    str=(char *)malloc((maxlen+1)*sizeof(char));
+    printf("enter a string\n");
+    fgets(str,maxlen+1,stdin);
+    printf("string is\n%s",str);
+    int id=0;
+    char *result;
+    result=(char *)malloc((maxlen+1)*sizeof(char));
+    for(int i=0;str[i]!='\0';i++)
+    {
+        if((str[i]<'a'||str[i]>'z')&&(str[i]<'A'||str[i]>'Z'))
+        {
+            continue;
+        }else
+        {
+            result[id++]=str[i];
+        }
+    }
+    printf("\nstring with only lower characters\n");
+    printf("%s",result);
+    printf("\n modified string after changing lower case to upper case\n");
+    modify(result);
+    printf("%s",result);
+    return 0;
+}
+//Question 7: 
