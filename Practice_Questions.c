@@ -158,4 +158,56 @@ int main()
     }
     return 0;
 }
-//Question 5:
+//Question 5: write a program to convert a string into integer,function should handle negative numbers and return 0 for invalid inputs.
+#include <stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+#include<string.h>
+int solve(char *str)
+{
+    int sign=1;
+    int result=0;
+    while(*str==' '||*str=='\t'||*str=='\n')
+       {
+           str++;
+       }
+       if(*str=='-'||*str=='+')
+       {
+           if(*str=='-')
+           {
+               sign=-1;
+           }
+           str++;
+       }
+       while(*str){
+           if(*str=='\n')
+           {
+               break;
+            }else if(isdigit(*str))
+            { 
+                result=result*10+(*str-'0');
+            }
+            else
+            {
+                return 0;
+            }
+            str++;
+       }
+      return sign*result;
+}
+int main()
+{
+   char *str;
+   int maxlen;
+   printf("enter the length of the string\n");
+   scanf("%d",&maxlen);
+   str=(char *)malloc((maxlen+1)*sizeof(char));
+   getchar();
+   printf("enter the string\n");
+   fgets(str,maxlen+1,stdin);
+   int ans=solve(str);
+   printf("\ndigits are: %d",ans);
+   free(str);
+    return 0;
+}
+//Question 6:
