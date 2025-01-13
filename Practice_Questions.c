@@ -210,4 +210,141 @@ int main()
    free(str);
     return 0;
 }
-//Question 6:
+//Question 6: write a program to check if two strings are anagrams of each other or not.
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+void sort_string(char *str,int n)
+{
+    for(int i=0;i<n-1;i++)
+    {
+        for(int j=0;j<n-i-1;j++)
+        {
+            if(str[j]>str[j+1])
+            {
+                char temp=str[j];
+                str[j]=str[j+1];
+                str[j+1]=temp;
+            }
+        }
+    }
+}
+int check(char *str1,char *str2,int n,int m)
+{
+    if(n!=m)
+    {
+        return 0;
+    }
+  for(int i=0;i<n;i++)
+  {
+      if(str1[i]!=str2[i])
+      {
+          return 0;
+      }
+  }
+  return 1;
+}
+int main()
+{
+    char *str1,*str2;
+    str1=(char *)malloc(500*sizeof(char));
+    str2=(char *)malloc(500*sizeof(char));
+    printf("enter the first string\n");
+    scanf("%[^\n]",str1);
+    getchar();
+    printf("enter the second string\n");
+    scanf("%[^\n]",str2);
+    int n=strlen(str1);
+    int m=strlen(str2);
+    sort_string(str1,n);
+    sort_string(str2,m);
+    int ans=check(str1,str2,n,m);
+    if(ans==0)
+    {
+        printf("false");
+    }
+    else
+    {
+       printf("true");
+    }
+    return 0;
+}
+//Question 7: 
+
+//Question 8: Write a program to compress a string by replacing consecutive occurrences of the same character with the character 
+//followed by the count. If the compressed string is not smaller than the original, return the original string.
+#include <stdio.h>
+#include<stdlib.h>
+void compress(char *str)
+{
+    int count[128]={0};
+    int should_compress=0;
+    for(int i=0;str[i]!='\0';i++)
+    {
+        count[str[i]]++;
+        if(count[str[i]]>1)
+        {
+            should_compress=1;
+        }
+    }
+    if(!should_compress)
+    {
+        printf("%s",str);
+        return;
+    }
+    for(int i=0;i<128;i++)
+    {
+        if(count[i]>0)
+        {
+            printf("%c%d",i,count[i]);
+        }
+        else if(count[i]==1)
+        {
+            printf("%c",i);
+        }
+    }
+}
+int main()
+{
+    char *str;
+    str=(char *)malloc(500*sizeof(char));
+    printf("enter the string\n");
+    scanf("%[^\n]",str);
+    printf("compressed string is\n");
+    compress(str);
+    return 0;
+}
+//Question 9: Write a program to remove all instances of a specific character from a string.
+#include <stdio.h>
+#include<stdlib.h>
+int removed(char *str,char remove_char)
+{
+    int id=0;
+    for(int i=0;str[i]!='\0';i++)
+    {
+        if(str[i]!=remove_char)
+        {
+            str[id++]=str[i];
+        }
+    }
+    return id;
+}
+int main()
+{
+    char *str;
+    str=(char *)malloc(500*sizeof(char));
+    printf("enter the string\n");
+    scanf("%[^\n]",str);
+    char remove_char;
+    getchar();
+    printf("enter the character to remove from string\n");
+    scanf("%c",&remove_char);
+    int size=removed(str,remove_char);
+    printf("updated string\n");
+    for(int i=0;i<size;i++)
+    {
+        printf("%c",str[i]);
+    }
+    return 0;
+}
+//Question 10:
