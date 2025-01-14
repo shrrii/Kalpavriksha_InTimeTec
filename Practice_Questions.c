@@ -347,4 +347,85 @@ int main()
     }
     return 0;
 }
-//Question 10:
+//Question 10:Write a program to find the longest palindromic substring in a given string. A palindrome reads the same forward 
+//and backward. If there are multiple longest palindromic substrings of the same length, return any one of them.
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<stdbool.h>
+bool checkpalindrome(char *str,int low,int high)
+{
+    while(low<high)
+    {
+        if(str[low]!=str[high])
+        {
+            return false;
+        }
+        low++;
+        high--;
+    }
+    return true;
+}
+void print(char *str,int n,char *result)
+{
+    int start=0,maxlen=1;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i;j<n;j++)
+        {
+            if(checkpalindrome(str,i,j)&&(j-i+1)>maxlen)
+            {
+                start=i;
+                maxlen=j-i+1;
+            }
+        }
+    }
+    strncpy(result,str+start,maxlen);
+    result[maxlen]='\0';
+}
+int main()
+{
+    int row,col;
+    char *str;
+    str=(char *)malloc(500*sizeof(char));
+    fgets(str,500,stdin);
+    int n=strlen(str);
+    char result[500];
+    print(str,n,result);
+    printf("%s",result);
+    return 0;
+}
+//Question 11: Generate and print all permutations of a given string. Assume all characters in the string are unique.
+#include <stdio.h>
+#include<string.h>
+void swap(char *a,char *b)
+{
+    char temp;
+    temp=*a;
+    *a=*b;
+    *b=temp;
+}
+void permutation(char *str,int first,int last)
+{
+    if(first==last)
+    {
+        printf("%s ",str);
+    }
+    else{
+        for(int i=first;i<=last;i++)
+        {
+            swap((str+first),(str+i));
+            permutation(str,first+1,last);
+            swap((str+first),(str+i));
+        }
+    }
+}
+int main()
+{
+    char str[500];
+	scanf("%s",str);
+    int n=strlen(str);
+    permutation(str,0,n-1);
+    return 0;
+}
+//Question 12: 
