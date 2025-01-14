@@ -428,4 +428,56 @@ int main()
     permutation(str,0,n-1);
     return 0;
 }
-//Question 12: 
+//Question 12: write a program to check if one string is a rotation of another.
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int k,l;
+int solve(char str[],char substr[],int n,int m)
+{
+    if(n!=m)
+    {
+       return 0;
+    }
+    for(int j=0;j<m;j++)
+        {
+            if(str[0]==substr[j])
+            {
+                int match=1;
+                k=j;
+                for(int i=0;i<n;i++)
+                {
+                    if(str[i]!=substr[k])
+                    {
+                        match=0;
+                        break;
+                    }
+                    k=(k+1)%m;
+                }
+                if(match)
+                 return 1;
+            }
+        }
+        return 0;
+}
+int main()
+{
+    char *str1,*str2;
+    str1=(char *)malloc(1000*sizeof(char));
+    str2=(char *)malloc(1000*sizeof(char));
+    printf("enter the string\n");
+    scanf("%[^\n]",str1);
+    getchar();
+    printf("enter the substring\n");
+    scanf("%[^\n]",str2);
+    int n=strlen(str1);
+    int m=strlen(str2);
+    if(solve(str1,str2,n,m)==1)
+    {
+        printf("true");
+    }else{
+        printf("false");
+    }
+    return 0;
+}
+//Question 13:
