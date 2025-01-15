@@ -269,7 +269,7 @@ int main()
     }
     return 0;
 }
-//Question 7: 
+//Question 7: There is some problem in this question
 
 //Question 8: Write a program to compress a string by replacing consecutive occurrences of the same character with the character 
 //followed by the count. If the compressed string is not smaller than the original, return the original string.
@@ -480,4 +480,177 @@ int main()
     }
     return 0;
 }
-//Question 13:
+//Question 13: Find the smallest substring in a given string that contains all the characters of another string.
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<limits.h>
+#define char_count 256
+char* smallest_substring(char* str,char* substr)
+{
+    int n=strlen(str);
+    int m=strlen(substr);
+    if(m==0)
+    {
+        return " ";
+    }
+    if(m>n)
+    {
+       return "No such substring found";
+    }
+    int str_count[char_count]={0};
+    int substr_count[char_count]={0};
+    for(int i=0;i<m;i++)
+    {
+        substr_count[substr[i]]++;
+    }
+    int start=0,minlength=INT_MAX,start_ind=-1,count=0;
+    for(int i=0;i<n;i++)
+    {
+        str_count[str[i]]++;
+        if(substr_count[str[i]]!=0&&str_count[str[i]]<=substr_count[str[i]])
+        {
+            count++;
+        }
+        if(count==m)
+        {
+            while(str_count[str[start]]>substr_count[str[start]]||
+                  substr_count[str[start]]==0){
+                      if(str_count[str[start]]>substr_count[str[start]]){
+                          str_count[str[start]]--;
+                      }
+                      start++;
+                  }
+                  int windowlength=i-start+1;
+                  if(minlength>windowlength)
+                  {
+                      minlength=windowlength;
+                      start_ind=start;
+                  }
+        }
+    }
+    if(start_ind==-1)
+    {
+        return "no such substring found";
+    }
+    static char result[10000];
+    strncpy(result,str+start_ind,minlength);
+    result[minlength]='\0';
+    return result;
+}
+int main()
+{
+    char *str,*substr;
+    str=(char*)malloc(10000*sizeof(char));
+    substr=(char*)malloc(10000*sizeof(char));
+    if(str==NULL||substr==NULL)
+    {
+        printf("memory allocation failed\n");
+        return 1;
+    }
+    printf("enter the string\n");
+    fgets(str,10000,stdin);
+    printf("enter the substring\n");
+    fgets(substr,10000,stdin);
+    str[strcspn(str,"\n")]='\0';
+    substr[strcspn(substr,"\n")]='\0';
+    char* result=smallest_substring(str,substr);
+    printf("smallest substring is: %s",result);
+    free(str);
+    free(substr);
+
+    return 0;
+}
+//Question 14: Write a program to remove adjacent duplicate characters in a string recursively until no adjacent duplicates remain.
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+void new_string(char *str,int id,int n,int start)
+{
+    for(int i=start;i<n;i++)
+    {
+        str[id++]=str[i];
+    }
+    str[id]='\0';
+}
+void remove_adjacent(char *str)
+{
+    int n=strlen(str);
+    for(int i=0;i<n-1;i++)
+    {
+        if(str[i]==str[i+1])
+        {
+            int start=i+2;
+            new_string(str,i,n,start);
+            remove_adjacent(str);
+            return;
+        }
+    }
+}
+int main()
+{
+    char *str;
+    str=(char *)malloc(10000*sizeof(char));
+    printf("enter the string\n");
+    fgets(str,10000,stdin);
+    str[strcspn(str,"\n")]='\0';
+    remove_adjacent(str);
+    printf("resultant string is: %s",str);
+    free(str);
+    return 0;
+}
+//Question 15:Write a program in C to validate whether a given string is a valid IPv4 address.
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int check(char *str,int n)
+{
+    if(n>15)
+    {
+        return 0;
+    }
+    int count=0;
+    char *token=strtok(str,".");
+    while(token!=NULL)
+    {
+        count++;
+        if(count>4)
+        {
+            return 0;
+        }
+        int num=0;
+        for(int i=0;token[i]!='\0';i++)
+        {
+            if(token[i]<'0'||token[i]>'9')
+            {
+                return 0;
+            }
+            num=num*10+(token[i]-'0');
+        }
+        if(num<0||num>255)
+        {
+            return 0;
+        }
+        token=strtok(NULL,".");
+    }
+    return count==4;
+}
+int main()
+{
+    char *str;
+    int maxlen=20;
+    str=(char *)malloc(maxlen*sizeof(char));
+    printf("enter the IP address\n");
+    fgets(str,maxlen,stdin);
+    str[strcspn(str,"\n")]='\0';
+    int n=strlen(str);
+    int ans=check(str,n);
+    if(ans==1)
+    {
+        printf("valid");
+    }else{
+        printf("invalid");
+    }
+    free(str);
+    return 0;
+}
