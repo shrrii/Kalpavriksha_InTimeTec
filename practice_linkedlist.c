@@ -149,7 +149,7 @@ int main()
     }
     return 0;
 }
-//Q.2 Implement double linked list: insert at beginning, at end, at middle. delete from beginning,last, middle, traverse list 
+//Q.3 Implement double linked list: insert at beginning, at end, at middle. delete from beginning,last, middle, traverse list 
 //from left to right,right to left. count number of nodes in list.
 #include <stdio.h>
 #include<stdlib.h>
@@ -467,3 +467,67 @@ int main()
     }
     return 0;
 }
+//Q.5 Implement the following function as a new function for the linked list toolkit. Precondition: head_ptr points to the start of a 
+//linked list. The list might be empty or it might be non-empty. Postcondition: The return value is the number of occurrences of 42 
+//in the data field of a node on the linked list. The list itself is unchanged.
+#include<stdio.h>
+#include<stdlib.h>
+struct Node{
+    int data;
+    struct Node* next;
+};
+struct Node* create_node(int value)
+{
+    struct Node* newnode=(struct Node*)malloc(sizeof(struct Node));
+    if(!newnode)
+    {
+        printf("memory allocation failed.\n");
+        exit(1);
+    }
+    newnode->data=value;
+    newnode->next=NULL;
+    return newnode;
+}
+void find_occurance(struct Node* head)
+{
+    if(head==NULL)
+    {
+        printf("list is empty.\n");
+    }
+    int count=0;
+    struct Node* temp=head;
+    while(temp!=NULL)
+    {
+        if(temp->data==42)
+        {
+            count++;
+        }
+        temp=temp->next;
+    }
+    free(temp);
+    printf("occurance of 42 in the list is: %d",count);
+}
+int main()
+{
+    int n,value;
+    printf("enter number of elements.\n");
+    scanf("%d",&n);
+    struct Node* head=NULL;
+    struct Node* prev=NULL;
+    printf("enter values:\n");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&value);
+        struct Node* newnode=create_node(value);
+        if(head==NULL)
+        {
+            head=newnode;
+        }else{
+            prev->next=newnode;   
+        }
+        prev=newnode;
+    }
+    find_occurance(head);
+}
+//Q.10 Write a "C" function to print a sparse matrix, each row in one line of output and properly formatted, with zero being 
+//printed in place of zero elements. 
