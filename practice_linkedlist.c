@@ -529,5 +529,173 @@ int main()
     }
     find_occurance(head);
 }
-//Q.10 Write a "C" function to print a sparse matrix, each row in one line of output and properly formatted, with zero being 
-//printed in place of zero elements. 
+//Q.10 Write a "C" function to print a sparse matrix, each row in one line of output and properly formatted,using linked list
+#include<stdio.h>
+#include<stdlib.h>
+struct Node{
+    int data;
+    struct Node* next;
+    struct Node* down;
+};
+struct Node* create_node(int value)
+{
+    struct Node* newnode=(struct Node*)malloc(sizeof(struct Node));
+    if(!newnode)
+    {
+        printf("memory allocation failed.\n");
+        exit(1);
+    }
+    newnode->data=value;
+    newnode->next=NULL;
+    newnode->down=NULL;
+    return newnode;
+}
+void print_list(struct Node* head,int row,int col)
+{
+    struct Node* temp;
+    for(int i=0;i<row;i++)
+    {
+        temp=head;
+        for(int k=0;k<i;k++)
+        {
+            temp=temp->down;   
+        }
+        for(int j=0;j<col;j++)
+        {
+            printf("%d ",temp->data);
+            temp=temp->next;
+        }
+    }
+}
+int main()
+{
+    int row,col,value;
+    printf("enter number of rows.\n");
+    scanf("%d",&row);
+    printf("enter number of columns.\n");
+    scanf("%d",&col);
+    struct Node* head=NULL;
+    struct Node* temp=NULL;
+    printf("enter value.\n");
+    for(int i=0;i<row;i++)
+    {
+        struct Node* ptr=temp;
+        struct Node* prev=NULL;
+        for(int j=0;j<col;j++)
+        {
+            scanf("%d",&value);
+            struct Node* newnode=create_node(value);
+            if(head==NULL)
+            {
+                head=newnode;
+            }
+            if(i>0)
+            {
+                ptr->down=newnode;
+                ptr=ptr->next;
+            }
+            if(j==0)
+            {
+                temp=newnode;
+            }
+            else if(prev!=NULL)
+            {
+                prev->next=newnode;
+            }
+            
+            prev=newnode;
+        }
+    }
+    printf("sparse matrix in one row is:\n");
+    print_list(head,row,col);
+}
+//Q.13 Consider representing a linked list of integers using arrays. Write a "C" function to delete the ith node from the list.
+#include<stdio.h>
+#include<stdlib.h>
+struct Node{
+    int data;
+    struct Node* next;
+};
+struct Node* create_node(int value)
+{
+    struct Node* newnode=(struct Node*)malloc(sizeof(struct Node));
+    if(!newnode)
+    {
+        printf("memory allocation failed.\n");
+        exit(1);
+    }
+    newnode->data=value;
+    newnode->next=NULL;
+    return newnode;
+}
+void delete_node(struct Node** head,int k)
+{
+    if(*head==NULL)
+    {
+        printf("list is empty.\n");
+        return;
+    }
+    struct Node* temp=*head;
+    struct Node* prev=NULL;
+    if(k==1)
+    {
+        *head=temp->next;
+        free(temp);
+        return;
+    }
+    else{
+        for(int i=1;i<k;i++)
+        {
+            prev=temp;
+            temp=temp->next;
+        }
+        prev->next=temp->next;
+        free(temp);
+    }
+}
+void print_list(struct Node* head)
+{
+    if(head==NULL)
+    {
+        printf("list is empty.\n");
+        return;
+    }
+    struct Node* temp=head;
+    while(temp!=NULL)
+    {
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+    free(temp);
+}
+int main()
+{
+    int n;
+    printf("enter size of array.\n");
+    scanf("%d",&n);
+    int arr[n];
+    struct Node* head=NULL;
+    struct Node* temp=NULL;
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+        struct Node* newnode=create_node(arr[i]);
+            if(head==NULL)
+            {
+                head=newnode;
+            }
+            else{
+                temp->next=newnode;
+            }
+            temp=newnode;
+    }
+    int k;
+    printf("enter kth node for delete.\n");
+    scanf("%d",&k);
+    if(k<=0||k>n)
+    {
+        printf("invalid node.\n");
+    }
+    delete_node(&head,k);
+    print_list(head);
+}
