@@ -149,7 +149,7 @@ int main()
     }
     return 0;
 }
-//Implement double linked list: insert at beginning, at end, at middle. delete from beginning,last, middle, traverse list 
+//Q.2 Implement double linked list: insert at beginning, at end, at middle. delete from beginning,last, middle, traverse list 
 //from left to right,right to left. count number of nodes in list.
 #include <stdio.h>
 #include<stdlib.h>
