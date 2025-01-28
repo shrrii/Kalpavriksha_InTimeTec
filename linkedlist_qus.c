@@ -229,3 +229,11 @@ int main()
     }
     return 0;
 }
+//time and space complexity
+//for Inserting a student takes O(N) time.
+//for Searching for a student takes O(N) time.
+//for Sorting the list by marks takes O(N^2) time.
+//for Deleting a student takes O(N) time.
+//for Printing the list takes O(N) time.
+//overall time complexity O(N^2) (due to the sorting function)
+//overall space complexity O(N * M) (due to the storage of N nodes and their name strings)
